@@ -1,0 +1,72 @@
+MODEL:
+  BACKBONE:
+    TYPE: 'mobileone'
+    STRIDE: 16
+  NECK:
+    TYPE: 'unetx' 
+    NORMILIZE: False
+  HEAD: 
+    TYPE: 'CENTER' 
+    NUM_CHANNELS: 64 
+  FEATUREMAP_CHANNELS: 256 
+  EMBEDDING_DIM: 128
+  HIDDEN_DIM: 64
+  RL_TRACKER:
+    NHEAD: 8
+    NUM_LAYERS: 6
+    DROP_OUT: 0.1
+    MAX_LEN: 512
+
+DATA:
+  SEARCH:
+    SIZE: 256
+    SCALE: 4
+  TEMPLATE:
+    SIZE: 128
+    SCALE: 2
+    DUAL: True
+    MASK: False
+  TRAIN_DATASETS:
+    - NAME: 'COCO'
+      ROOT_DIR: '/data/coco/val2017/'
+      ANNO_FILE: '/data/coco/annotations/instances_val2017.json'
+      RATIO: 0.1
+    - NAME: 'SA1B'
+      ROOT_DIRS: ['/data/SA1B/part_0/']
+      RATIO: 0.1
+  VAL_DATASETS:
+    - NAME: 'COCO'
+      ROOT_DIR: '/data/coco/val2017/'
+      ANNO_FILE: '/data/coco/annotations/instances_val2017.json'
+      RATIO: 0.1
+
+TRAIN:
+  SEED: 9404
+  OPTIMIZER: 'adamw'
+  MOMENTUM: 0.9
+  WEIGHT_DECAY: 0.0001
+  LR: 0.001
+  GPU_IDS: [0,1]
+  BATCH_SIZE: 40
+  NUM_WORKERS: 16
+  PREFETCH_FACTOR: 8
+  NUM_EPOCHS: 180
+  BACKBONE:
+    FINETUNE: False
+    LR: 0.0001
+  LOSS:
+    CONTRA_WEIGHT: 1.0
+    TEMPTURE: 0.07
+    CLS_WEIGHT: 2.0
+    BBOX_WEIGHT: 1.0
+    IOU_WEIGHT: 1.0
+  SAVE_PATH: './experiments/umatcher_train/'
+  RESUME: True
+  SCHEDULER:
+    TYPE: 'step'
+    STEP_SIZE: 60 
+    GAMMA: 0.1
+    T_MAX: 100
+    ETA_MIN: 0.00001
+  SAVE_FREQ: 10
+

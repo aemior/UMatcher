@@ -1,0 +1,15 @@
+[
+    {
+        "image_path": "./data/test_4.png",
+        "annotations": [
+            {
+                "label": "banana",
+                "bbox":  [51, 54, 73, 70]
+            },
+            {
+                "label": "apple",
+                "bbox": [258, 361, 62, 55]
+            }
+        ]
+    }
+]
