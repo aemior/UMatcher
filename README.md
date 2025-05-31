@@ -1,5 +1,5 @@
 
-# ![UMatcher Logo](data/assets/logo.png) UMatcher: A morden template matching model
+# ![UMatcher Logo](data/assets/logo.png) UMatcher: A modern template matching model
 
 ![UMatcher fun](data/assets/umatcher.png)
 
